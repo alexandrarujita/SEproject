@@ -12,37 +12,69 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-public class guiLog extends Application {
+import javax.swing.*;
 
-    public Button button;
-    public TextField username;
-    public PasswordField password;
-    private Alert wrongLogin;
+public class guiLog {
 
-    public static void main(String[] args) {
-        launch(args);
+    private JFrame frmApplicationForFamily;
+    private JTextField usernameField;
+    private JPasswordField passwordField;
+    private JTextField textField;
+    private JButton btnLogin;
+    private JButton btnNewUser;
+
+    /**
+     * Create the application.
+     */
+
+    public guiLog() {
+        initialize();
     }
 
-    @Override
-    public void start(Stage primaryStage) {
-        button = new Button();
-        username = new TextField();
-        password = new PasswordField();
-        wrongLogin = new Alert(Alert.AlertType.ERROR);
+    /**
+     * Initialize the contents of the frame.
+     */
+    private void initialize() {
+        frmApplicationForFamily = new JFrame();
+        frmApplicationForFamily.setTitle("Application for family doctors");
+        frmApplicationForFamily.setBounds(100, 100, 450, 300);
+        frmApplicationForFamily.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frmApplicationForFamily.getContentPane().setLayout(null);
 
-        button.setText("Login");
+        JLabel lblUsername = new JLabel("Username:");
+        lblUsername.setBounds(77, 83, 84, 38);
+        frmApplicationForFamily.getContentPane().add(lblUsername);
 
-        wrongLogin.setTitle("Wrong login information");
-        wrongLogin.setContentText("Wrong ID or password");
-        //wrongLogin.showAndWait();
+        JLabel lblNewLabel = new JLabel("Password:");
+        lblNewLabel.setBounds(77, 123, 84, 23);
+        frmApplicationForFamily.getContentPane().add(lblNewLabel);
 
-        GridPane layout = new GridPane();
-        layout.add(button,3,5);
-        layout.add(username,3,1);
-        layout.add(password,3,3);
+        usernameField = new JTextField();
+        usernameField.setBounds(176, 92, 152, 20);
+        frmApplicationForFamily.getContentPane().add(usernameField);
+        usernameField.setColumns(10);
 
-        Scene scene = new Scene(layout, 300, 300);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        passwordField = new JPasswordField();
+        passwordField.setBounds(176, 124, 152, 20);
+        frmApplicationForFamily.getContentPane().add(passwordField);
+
+        btnLogin = new JButton("Login");
+        btnLogin.setBounds(64, 193, 89, 38);
+        frmApplicationForFamily.getContentPane().add(btnLogin);
+
+        JLabel lblCnp = new JLabel("CNP:");
+        lblCnp.setBounds(77, 58, 46, 14);
+        frmApplicationForFamily.getContentPane().add(lblCnp);
+
+        textField = new JTextField();
+        textField.setBounds(176, 61, 152, 20);
+        frmApplicationForFamily.getContentPane().add(textField);
+        textField.setColumns(10);
+
+        btnNewUser = new JButton("New user");
+        btnNewUser.setBounds(211, 193, 89, 38);
+        frmApplicationForFamily.getContentPane().add(btnNewUser);
+
+        frmApplicationForFamily.setVisible(true);
     }
 }

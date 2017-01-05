@@ -23,9 +23,15 @@ public class guiMainPage extends Application {
     public Button addPrescription;
     public Button addAppointment;
 
+  //  public guiLog g = new guiLog();
+
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public guiMainPage(){
+        new guiLog();
     }
 
     @Override
