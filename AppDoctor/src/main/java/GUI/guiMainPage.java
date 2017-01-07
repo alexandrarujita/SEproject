@@ -33,6 +33,9 @@ public class guiMainPage {
     public JTextField cnpField;
     public JButton btnLogout;
     public JButton btnRemovePatient;
+    private JLabel lblAdress;
+    public JTextField adressField;
+    public JButton btnUpdatePatient;
 
     //prescription
     public JPanel contentPanePrescription;
@@ -146,6 +149,19 @@ public class guiMainPage {
         btnLogout = new JButton("LOGOUT");
         btnLogout.setBounds(370, 11, 89, 23);
         contentPane.add(btnLogout);
+
+        lblAdress = new JLabel("Adress:");
+        lblAdress.setBounds(22, 146, 71, 14);
+        contentPane.add(lblAdress);
+
+        adressField = new JTextField();
+        adressField.setColumns(10);
+        adressField.setBounds(108, 143, 156, 20);
+        contentPane.add(adressField);
+
+        btnUpdatePatient = new JButton("Update patient's info");
+        btnUpdatePatient.setBounds(126, 262, 186, 38);
+        contentPane.add(btnUpdatePatient);
 
 
     }
