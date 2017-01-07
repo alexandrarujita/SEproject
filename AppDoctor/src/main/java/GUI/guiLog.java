@@ -6,13 +6,12 @@ import javax.swing.*;
 
 public class guiLog {
 
-    private JFrame frmApplicationForFamily;
-    private JTextField usernameField;
-    private JPasswordField passwordField;
-    private JTextField textField;
-    private JButton btnLogin;
-    private JButton btnNewUser;
-    private JMenuItem nou;
+    public JFrame frmApplicationForFamily;
+    public JTextField usernameField;
+    public JPasswordField passwordField;
+    public JTextField cnpField;
+    public JButton btnLogin;
+    public JButton btnNewUser;
 
     /**
      * Create the application.
@@ -57,10 +56,10 @@ public class guiLog {
         lblCnp.setBounds(77, 58, 46, 14);
         frmApplicationForFamily.getContentPane().add(lblCnp);
 
-        textField = new JTextField();
-        textField.setBounds(176, 61, 152, 20);
-        frmApplicationForFamily.getContentPane().add(textField);
-        textField.setColumns(10);
+        cnpField = new JTextField();
+        cnpField.setBounds(176, 61, 152, 20);
+        frmApplicationForFamily.getContentPane().add(cnpField);
+        cnpField.setColumns(10);
 
         btnNewUser = new JButton("New user");
         btnNewUser.setBounds(211, 193, 89, 38);

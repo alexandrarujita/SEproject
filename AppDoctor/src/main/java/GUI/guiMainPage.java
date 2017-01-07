@@ -10,45 +10,45 @@ import static javafx.scene.paint.Color.*;
 
 public class guiMainPage {
 
-    private JFrame mainPage, prescriptionPage;
+    public JFrame mainPage, prescriptionPage;
     private JPanel contentPane;
-    private JButton btnAddNewPatient;
-    private JMenuBar menuBar;
-    private JMenu mnMedical;
-    private JMenuItem mntmAddNewEvent;
-    private JMenuItem mntmSeeNextWeeks;
-    private JMenu mnPatient;
-    private JMenuItem mntmSeeCurrentEvents;
-    private JMenu mnEvents;
-    private JMenuItem mntmBasicInformation;
-    private JMenuItem mntmRecord;
-    private JMenuItem mntmAddPrescription; //the prescription frame will open
-    private JMenuItem mntmAddVisit;
-    private JMenuItem mntmAddDisease; //cannot be accessed by nurse
-    private JMenuItem mntmAddResult; //cannot be accessed by nurse
-    private JMenuItem mntmNewDisease;
-    private JMenuItem mntmAddDrug; //cannot be accessed by nurse
-    private JTextField firstNameField;
-    private JTextField lastNameField;
-    private JTextField cnpField;
-    private JButton btnLogout;
+    public JButton btnAddNewPatient;
+    public JMenuBar menuBar;
+    public JMenu mnMedical;
+    public JMenuItem mntmAddNewEvent;
+    public JMenuItem mntmSeeNextWeeks;
+    public JMenu mnPatient;
+    public JMenuItem mntmSeeCurrentEvents;
+    public JMenu mnEvents;
+    public JMenuItem mntmBasicInformation;
+    public JMenuItem mntmRecord;
+    public JMenuItem mntmAddPrescription; //the prescription frame will open
+    public JMenuItem mntmAddVisit;
+    public JMenuItem mntmAddDisease; //cannot be accessed by nurse
+    public JMenuItem mntmAddResult; //cannot be accessed by nurse
+    public JMenuItem mntmNewDisease;
+    public JMenuItem mntmAddDrug; //cannot be accessed by nurse
+    public JTextField firstNameField;
+    public JTextField lastNameField;
+    public JTextField cnpField;
+    public JButton btnLogout;
 
     //prescription
-    private JPanel contentPanePrescription;
-    private JLabel lblDate; //will be updated with current date
-    private JLabel lblPatientName; //will be updated with patient's name
-    private JTextField diseaseField;
-    private JTextField drugField; //drugs will be separated with commas and then applied regex on the string
-    private JTextField quantityField;
-    private JTextField directionsField;
-    private JButton btnAddPrescription;
-    private JButton btnSeeDrugs; // a new window will appear with all the drugs in the database
+    public JPanel contentPanePrescription;
+    public JLabel lblDate; //will be updated with current date
+    public JLabel lblPatientName; //will be updated with patient's name
+    public JTextField diseaseField;
+    public JTextField drugField; //drugs will be separated with commas and then applied regex on the string
+    public JTextField quantityField;
+    public JTextField directionsField;
+    public JButton btnAddPrescription;
+    public JButton btnSeeDrugs; // a new window will appear with all the drugs in the database
 
-  //  public guiLog g = new guiLog();
+    //admin page
 
 
     public guiMainPage(){
-        new guiLog();
+
     }
 
     public void guiDoctor() {
@@ -209,5 +209,6 @@ public class guiMainPage {
 
         prescriptionPage.setVisible(true);
     }
+
 
 }
