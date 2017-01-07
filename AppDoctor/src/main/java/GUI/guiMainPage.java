@@ -32,6 +32,7 @@ public class guiMainPage {
     public JTextField lastNameField;
     public JTextField cnpField;
     public JButton btnLogout;
+    public JButton btnRemovePatient;
 
     //prescription
     public JPanel contentPanePrescription;
@@ -44,11 +45,11 @@ public class guiMainPage {
     public JButton btnAddPrescription;
     public JButton btnSeeDrugs; // a new window will appear with all the drugs in the database
 
-    //admin page
-
-
     public guiMainPage(){
 
+        guiDoctor();
+        contentPane.setVisible(true);
+        mainPage.setVisible(true);
     }
 
     public void guiDoctor() {
@@ -56,6 +57,7 @@ public class guiMainPage {
         mainPage.setTitle("Doctor's page");
         mainPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainPage.setBounds(100, 100, 485, 371);
+
 
         menuBar = new JMenuBar();
         mainPage.setJMenuBar(menuBar);
@@ -102,8 +104,11 @@ public class guiMainPage {
         mntmSeeNextWeeks = new JMenuItem("See next week's events");
         mnEvents.add(mntmSeeNextWeeks);
 
+        contentPane = new JPanel();
+        mainPage.setContentPane(contentPane);
+        contentPane.setLayout(null);
 
-        JButton btnRemovePatient = new JButton("Remove patient");
+        btnRemovePatient = new JButton("Remove patient");
         btnRemovePatient.setBounds(240, 213, 156, 38);
         contentPane.add(btnRemovePatient);
 
@@ -142,14 +147,16 @@ public class guiMainPage {
         btnLogout.setBounds(370, 11, 89, 23);
         contentPane.add(btnLogout);
 
-        mainPage.setVisible(true);
+
     }
 
     public void guiPrescription() {
 
+        prescriptionPage = new JFrame();
         prescriptionPage.setTitle("Add prescription");
         prescriptionPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         prescriptionPage.setBounds(100, 100, 704, 292);
+
         contentPanePrescription = new JPanel();
         contentPanePrescription.setBorder(new EmptyBorder(5, 5, 5, 5));
         prescriptionPage.setContentPane(contentPanePrescription);

@@ -1,6 +1,9 @@
 package main;
 
+import Controller.Controller;
+import GUI.guiAdmin;
 import GUI.guiLog;
+import GUI.guiMainPage;
 
 
 /**
@@ -11,6 +14,8 @@ public class toRun {
     public static void main(String[] args) {
 
        // launch(args);
-        new guiLog();
+      // new Controller();
+      //  new guiAdmin();
+    new guiMainPage();
     }
 }

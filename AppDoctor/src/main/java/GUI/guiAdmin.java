@@ -11,15 +11,17 @@ public class guiAdmin {
 
     public JFrame adminFrame;
     private JPanel contentPane;
-    private JButton btnUpdateEmployeeInformation;
-    private JButton btnNewButton;
-    private JButton btnDeleteEmployee;
-    private JTextField firstNameField;
-    private JTextField lastNameField;
-    private JTextField cnpField;
-    private JTextField positionField;
+    public JButton btnUpdateEmployeeInformation;
+    public JButton btnNewButton;
+    public JButton btnDeleteEmployee;
+    public JTextField firstNameField;
+    public JTextField lastNameField;
+    public JTextField cnpField;
+    public JTextField positionField;
 
     public guiAdmin() {
+        adminFrame = new JFrame();
+
         adminFrame.setTitle("Admin page");
         adminFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         adminFrame.setBounds(100, 100, 681, 353);

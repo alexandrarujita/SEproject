@@ -25,6 +25,7 @@ public class Controller {
 
     public Controller(){
       loginPage = new guiLog();
+        loginActions();
 
     }
 
@@ -33,10 +34,13 @@ public class Controller {
             public void actionPerformed(ActionEvent e) {
                 String username  = loginPage.usernameField.getText();
                 char[] passw = loginPage.passwordField.getPassword();
+                //System.out.println(username+"hahaha");
+
                 if( username == "admin"){
                     adminPage = new guiAdmin();
                 }else{
                     Employee loginEmployee = new Employee();
+                    loginEmployee.setPosition("nurse");
                     //call to method in employee service
                     if(loginEmployee.getPosition() == "doctor")
                         mainPage = new guiMainPage();
