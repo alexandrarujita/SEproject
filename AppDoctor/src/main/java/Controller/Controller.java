@@ -7,6 +7,7 @@ import Person.Doctor;
 import Person.Nurse;
 import Person.*;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -20,11 +21,13 @@ public class Controller {
     private guiAdmin adminPage;
     private Doctor doctorLogin;
     private Nurse nurseLogin;
+    private employeeService employeeAccess;
 
 
 
     public Controller(){
       loginPage = new guiLog();
+        employeeAccess = new employeeService();
         loginActions();
 
     }
@@ -34,21 +37,30 @@ public class Controller {
             public void actionPerformed(ActionEvent e) {
                 String username  = loginPage.usernameField.getText();
                 char[] passw = loginPage.passwordField.getPassword();
-                //System.out.println(username+"hahaha");
 
-                if( username == "admin"){
+                if( username.equals("admin") ){
                     adminPage = new guiAdmin();
                 }else{
-                    Employee loginEmployee = new Employee();
-                    loginEmployee.setPosition("nurse");
-                    //call to method in employee service
-                    if(loginEmployee.getPosition() == "doctor")
-                        mainPage = new guiMainPage();
-                    else{
-                        mainPage = new guiMainPage();
-                        mainPage.diseaseField.setVisible(false);
-                        mainPage.mntmAddDisease.setVisible(false);
-                        mainPage.mntmAddDrug.setVisible(false);
+                    Employee loginEmployee = employeeAccess.getEmployeeInfo();
+                    loginPage.cnpField.setVisible(false);
+                    loginPage.lblCnp.setVisible(false);
+
+                    if ( loginEmployee.getUserName().equals(null) ) {
+                       JOptionPane.showMessageDialog(null,"Username does not yet exist, please click NEW USER  ","OK",JOptionPane.OK_OPTION);
+                        loginPage.cnpField.setVisible(true);
+                        loginPage.lblCnp.setVisible(true);
+                    }else {
+
+                        if (loginEmployee.getPosition().equals("doctor"))
+                            mainPage = new guiMainPage();
+                        else {
+                            mainPage = new guiMainPage();
+                            mainPage.mnPatient.remove(mainPage.mntmNewDisease);
+//                        mainPage.diseaseField.setVisible(false);
+//                        mainPage.mntmAddDisease.setVisible(false);
+//                        mainPage.mntmAddDrug.setVisible(false);
+
+                        }
                     }
                 }
             }
@@ -57,13 +69,13 @@ public class Controller {
         loginPage.btnNewUser.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                String cnp = loginPage.cnpField.getText();
-                /*
-                if ( cnp exista in baza de date )
-                        return an employee
-                 */
-                Employee newEmployee = new Employee();
+
+                Employee newEmployee  = employeeAccess.getEmployeeInfo(cnp);
+
                 newEmployee.setUserName(loginPage.usernameField.getText());
                 newEmployee.setPassword(loginPage.passwordField.getPassword());
+
+                employeeAccess.setEmployeeInfo(newEmployee);
 
             }
         });

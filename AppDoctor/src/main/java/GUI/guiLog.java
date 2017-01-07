@@ -12,6 +12,7 @@ public class guiLog {
     public JTextField cnpField;
     public JButton btnLogin;
     public JButton btnNewUser;
+    public  JLabel lblCnp;
 
     /**
      * Create the application.
@@ -52,7 +53,7 @@ public class guiLog {
         btnLogin.setBounds(64, 193, 89, 38);
         frmApplicationForFamily.getContentPane().add(btnLogin);
 
-        JLabel lblCnp = new JLabel("CNP:");
+        lblCnp = new JLabel("CNP:");
         lblCnp.setBounds(77, 58, 46, 14);
         frmApplicationForFamily.getContentPane().add(lblCnp);
 

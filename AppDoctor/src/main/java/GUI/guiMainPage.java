@@ -106,7 +106,7 @@ public class guiMainPage {
 
         contentPane = new JPanel();
         mainPage.setContentPane(contentPane);
-        contentPane.setLayout(null);
+        contentPane.setLayout(null );
 
         btnRemovePatient = new JButton("Remove patient");
         btnRemovePatient.setBounds(240, 213, 156, 38);

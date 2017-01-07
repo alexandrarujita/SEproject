@@ -14,8 +14,8 @@ public class toRun {
     public static void main(String[] args) {
 
        // launch(args);
-      // new Controller();
+       new Controller();
       //  new guiAdmin();
-    new guiMainPage();
+    //new guiMainPage();
     }
 }
