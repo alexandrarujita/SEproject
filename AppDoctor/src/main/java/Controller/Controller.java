@@ -1,19 +1,20 @@
 package Controller;
 
 import GUI.guiAdmin;
+import GUI.guiCalendar;
 import GUI.guiLog;
 import GUI.guiMainPage;
 import Patient.Patient;
 import Person.Doctor;
 import Person.Nurse;
 import Person.*;
-import sun.util.resources.CalendarData;
+import org.joda.time.DateTime;
+import org.joda.time.chrono.StrictChronology;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 /**
  * Created by Alexandra R on 11/18/2016.
@@ -27,6 +28,10 @@ public class Controller {
     private Nurse nurseLogin;
     private employeeService employeeAccess;
     private patientService patientAccess;
+    private doctorService doctorAccess;
+    private guiCalendar calendarPage;
+    private dateService dateAccess;
+    private int day;
 
 
     public Controller() {
@@ -45,32 +50,36 @@ public class Controller {
                 String username = loginPage.usernameField.getText();
                 char[] passw = loginPage.passwordField.getPassword();
 
-                if (username.equals("admin")) {
-                    adminPage = new guiAdmin();
-                    loginPage.frmApplicationForFamily.setVisible(false);
-                    adminActions();
+                if (passw.length == 0) {
+                    JOptionPane.showMessageDialog(null, "Please enter a password");
                 } else {
-                    Employee loginEmployee = employeeAccess.getEmployeeInfo();
 
-                    if (loginEmployee.getUserName().equals("nou")) { //aici inca nu stiu sigur cum sa facem altfel
-                        JOptionPane.showMessageDialog(null, "Username does not yet exist, please click NEW USER  ", "OK", JOptionPane.OK_OPTION);
-                        loginPage.cnpField.setVisible(true);
-                        loginPage.lblCnp.setVisible(true);
+                    if (username.equals("admin")) {
+                        adminPage = new guiAdmin();
+                        loginPage.frmApplicationForFamily.setVisible(false);
+                        adminActions();
                     } else {
-                        if (!loginEmployee.getPassword().equals(passw)) {
-                            JOptionPane.showMessageDialog(null, "Incorrect password! ", "OK", JOptionPane.OK_OPTION);
-                        } else {
-                            mainPage = new guiMainPage();
-                            mainPageActions();
-                            if (loginEmployee.getPosition().equals("nurse")) {
+                        Employee loginEmployee = employeeAccess.getEmployeeInfo();
 
-                                mainPage.mnPatient.remove(mainPage.mntmNewDisease);
+                        if (loginEmployee.getUserName().equals("nou")) { //aici inca nu stiu sigur cum sa facem altfel
+                            JOptionPane.showMessageDialog(null, "Username does not yet exist, please click NEW USER  ", "OK", JOptionPane.OK_OPTION);
+                            loginPage.cnpField.setVisible(true);
+                            loginPage.lblCnp.setVisible(true);
+                        } else {
+                            if (!loginEmployee.getPassword().equals(passw)) {
+                                JOptionPane.showMessageDialog(null, "Incorrect password! ", "OK", JOptionPane.OK_OPTION);
+                            } else {
+                                mainPage = new guiMainPage();
+                                mainPageActions();
+                                if (loginEmployee.getPosition().equals("nurse")) {
+
 //                        mainPage.diseaseField.setVisible(false);
 //                        mainPage.mntmAddDisease.setVisible(false);
 //                        mainPage.mntmAddDrug.setVisible(false);
 
+                                }
+                                loginPage.frmApplicationForFamily.setVisible(false);
                             }
-                            loginPage.frmApplicationForFamily.setVisible(false);
                         }
                     }
                 }
@@ -79,16 +88,24 @@ public class Controller {
 
         loginPage.btnNewUser.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                loginPage.cnpField.setVisible(true);
+                loginPage.lblCnp.setVisible(true);
+
                 String cnp = loginPage.cnpField.getText();
 
-                Employee newEmployee = employeeAccess.getEmployeeInfo(cnp);
+                if (!cnp.matches("[0-9]+"))
+                    JOptionPane.showMessageDialog(null, "CNP must contain only digits");
+                else {
+                    Employee newEmployee = employeeAccess.getEmployeeInfo(cnp);
 
-                newEmployee.setUserName(loginPage.usernameField.getText());
-                newEmployee.setPassword(loginPage.passwordField.getPassword());
+                    newEmployee.setUserName(loginPage.usernameField.getText());
+                    newEmployee.setPassword(loginPage.passwordField.getPassword());
 
-                employeeAccess.setEmployeeInfo(newEmployee);
-                mainPage = new guiMainPage();
-                loginPage.frmApplicationForFamily.setVisible(false);
+                    employeeAccess.setEmployeeInfo(newEmployee);
+                    mainPage = new guiMainPage();
+                    mainPageActions();
+                    loginPage.frmApplicationForFamily.setVisible(false);
+                }
 
             }
         });
@@ -97,6 +114,8 @@ public class Controller {
     }
 
     private void mainPageActions() {
+
+        final Calendar events = Calendar.getInstance();
 
         mainPage.btnAddNewPatient.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -124,6 +143,13 @@ public class Controller {
             }
         });
 
+        mainPage.btnLogout.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                mainPage.mainPage.setVisible(false);
+                loginPage.frmApplicationForFamily.setVisible(true);
+            }
+        });
+
         mainPage.mntmAddPrescription.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
@@ -133,13 +159,40 @@ public class Controller {
             }
         });
 
-
-        mainPage.btnLogout.addActionListener(new ActionListener() {
+        mainPage.mntmAddDrug.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                mainPage.mainPage.setVisible(false);
-                loginPage.frmApplicationForFamily.setVisible(true);
+                String drug = JOptionPane.showInputDialog(null, "Enter new drug");
+                doctorAccess.addNewDrug(drug);
             }
         });
+
+        mainPage.mntmSeeEvents.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                DateTime[] events = dateAccess.getEvents();
+                calendarPage = new guiCalendar();
+                calendarPage.setEvents(events);
+
+            }
+        });
+
+        mainPage.mntmAddNewEvent.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String details =  JOptionPane.showInputDialog(null,"Add events details");
+                calendarPage = new guiCalendar();
+                getAppointmentDate();
+                DateTime appointment = new DateTime(calendarPage.getYy(), calendarPage.getMm(), day, 1, 1);
+                dateAccess.addNewEvent(appointment,details);
+
+            }
+        });
+
+        mainPage.mntmNewDisease.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String disease = JOptionPane.showInputDialog(null, "Enter new disease");
+                doctorAccess.addDisease(disease);
+            }
+        });
+
 
         mainPage.mntmBasicInformation.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -153,17 +206,6 @@ public class Controller {
             }
         });
 
-        mainPage.mntmAddPrescription.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-
-        mainPage.mntmAddDisease.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
 
         mainPage.mntmAddResult.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -171,49 +213,24 @@ public class Controller {
             }
         });
 
-        mainPage.mntmAddDrug.addActionListener(new ActionListener() {
+        mainPage.mntmAddAppointmentForPatient.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                calendarPage = new guiCalendar();
+                getAppointmentDate();
+                DateTime appointment = new DateTime(calendarPage.getYy(), calendarPage.getMm(), day, 1, 1);
+                Person patient = getPatientInfo();
+                dateAccess.addNewAppointment(appointment,patient);
+                patientAccess.addAppointment(appointment,patient);
             }
         });
 
-        mainPage.mntmSeeCurrentEvents.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
 
-            }
-        });
-
-        mainPage.mntmAddNewEvent.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-
-        mainPage.mntmSeeNextWeeks.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-
-        mainPage.mntmNewDisease.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-
-        mainPage.mntmAddVisit.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-
-        //add new disease si add appointment for patient
     }
 
     private void prescriptionActions(final Person patientsPrescr) {
 
         mainPage.lblPatientName.setText(patientsPrescr.getFirstName() + " " + patientsPrescr.getLastName());
-        mainPage.lblDate.setText(new GregorianCalendar().toString());
+        mainPage.lblDate.setText(new Date().toString());
 
         mainPage.btnSeeDrugs.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -224,6 +241,12 @@ public class Controller {
         mainPage.btnAddPrescription.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //get all the fields
+                String disease = mainPage.diseaseField.getText();
+                String drug = mainPage.drugField.getText();
+                int quantity = Integer.parseInt(mainPage.quantityField.getText());
+                String directions = mainPage.directionsField.getText();
+                
+                patientAccess.addDisease(disease);
                 patientAccess.addPrescriptionFor(patientsPrescr);
             }
         });
@@ -254,7 +277,7 @@ public class Controller {
         });
     }
 
-    public Employee getEmployeeData() {
+    private Employee getEmployeeData() {
         Employee newEmp = new Employee();
 
         newEmp.setFirstName(adminPage.firstNameField.getText());
@@ -268,14 +291,30 @@ public class Controller {
         return newEmp;
     }
 
-    public Patient getPatientInfo() {
+    private Patient getPatientInfo() {
         Patient patient = new Patient();
 
         patient.setFirstName(mainPage.firstNameField.getText());
         patient.setLastName(mainPage.lastNameField.getText());
         patient.setCNP(mainPage.cnpField.getText());
-        patient.setAddress(mainPage.adressField.getText());
 
         return patient;
     }
+
+    private void getAppointmentDate() {
+
+        for (int i = 0; i < 6; i++)
+            for (int j = 0; j < 7; j++) {
+                calendarPage.labs[i][j].addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        String num = e.getActionCommand();
+                        if (!num.equals("")) {
+                            day = Integer.parseInt(num);
+
+                        }
+                    }
+                });
+            }
+    }
+
 }
