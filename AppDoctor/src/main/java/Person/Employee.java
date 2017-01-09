@@ -6,16 +6,15 @@ package Person;
 public class Employee extends Person{
     private String position;
     private String userName;
-    private char[] password;
+    private String password;
 
 
-    public Employee(String firstName, String lastName, String CNP, String address, String position, String userName, char[] password) {
-        super(firstName, lastName, CNP, address);
+    public Employee(String firstName, String lastName, String CNP, String position, String userName, String password) {
+        super(firstName, lastName, CNP);
         this.position = position;
         this.userName = userName;
         this.password = password;
     }
-
     public Employee(){
 
     }
@@ -28,11 +27,11 @@ public class Employee extends Person{
         this.userName = userName;
     }
 
-    public char[] getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(char[] password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 

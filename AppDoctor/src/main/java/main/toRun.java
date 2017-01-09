@@ -1,6 +1,7 @@
 package main;
 
 import Controller.Controller;
+import Database.ConnectionToDatabase;
 import GUI.guiAdmin;
 import GUI.guiLog;
 import GUI.guiMainPage;
@@ -14,7 +15,10 @@ public class toRun {
     public static void main(String[] args) {
 
        // launch(args);
-       new Controller();
+        ConnectionToDatabase connectionToDatabase = new ConnectionToDatabase();
+        connectionToDatabase.startConnection();
+       new Controller(connectionToDatabase);
+        //connectionToDatabase.closeConnection();
       //  new guiAdmin();
     //new guiMainPage();
     }

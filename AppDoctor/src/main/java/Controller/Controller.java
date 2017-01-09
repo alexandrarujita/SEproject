@@ -1,5 +1,6 @@
 package Controller;
 
+import Database.ConnectionToDatabase;
 import GUI.guiAdmin;
 import GUI.guiLog;
 import GUI.guiMainPage;
@@ -22,14 +23,16 @@ public class Controller {
     private Doctor doctorLogin;
     private Nurse nurseLogin;
     private employeeService employeeAccess;
+    private ConnectionToDatabase conn;
 
 
 
-    public Controller(){
+    public Controller(ConnectionToDatabase conn){
+        this.conn = conn;
+       // conn.startConnection();
       loginPage = new guiLog();
-        employeeAccess = new employeeService();
+        employeeAccess = new employeeService(conn.getConn());
         loginActions();
-
     }
 
     private void loginActions(){
@@ -73,7 +76,7 @@ public class Controller {
                 Employee newEmployee  = employeeAccess.getEmployeeInfo(cnp);
 
                 newEmployee.setUserName(loginPage.usernameField.getText());
-                newEmployee.setPassword(loginPage.passwordField.getPassword());
+                newEmployee.setPassword(String.valueOf(loginPage.passwordField.getPassword()));
 
                 employeeAccess.setEmployeeInfo(newEmployee);
 
