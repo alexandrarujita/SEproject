@@ -67,6 +67,5 @@ public class guiLog {
         frmApplicationForFamily.getContentPane().add(btnNewUser);
 
         frmApplicationForFamily.setVisible(true);
-
     }
 }

@@ -7,11 +7,13 @@ public abstract class Person {
     private String firstName;
     private String lastName;
     private String CNP;
+    private String address;
 
-    public Person(String firstName, String lastName, String CNP) {
+    public Person(String firstName, String lastName, String CNP, String address) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.CNP = CNP;
+        this.address = address;
     }
 
     public Person(){
@@ -42,4 +44,11 @@ public abstract class Person {
         this.CNP = CNP;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 }
