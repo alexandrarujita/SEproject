@@ -12,6 +12,10 @@ public class Patient extends Person.Person {
     public Patient(String firstName, String lastName, String CNP, String address) {
         super(firstName, lastName, CNP, address);
     }
+
+    public Patient(){
+
+    }
 }
 
 

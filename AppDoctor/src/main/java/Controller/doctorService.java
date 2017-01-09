@@ -5,4 +5,15 @@ package Controller;
  */
 public class doctorService {
 
+    public doctorService(){
+
+    }
+
+    public void addDisease(String disease){
+
+    }
+
+    public  void addNewDrug(String drug){
+
+    }
 }

@@ -12,5 +12,20 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="GroupLayout" level="project" />
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://D:/joda-time-2.9.7" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://D:/joda-time-2.9.7" />
+          <root url="file://D:/joda-time-2.9.7/src/main/java" />
+          <root url="file://D:/joda-time-2.9.7/src/test/java" />
+        </SOURCES>
+        <jarDirectory url="file://D:/joda-time-2.9.7" recursive="false" />
+        <jarDirectory url="file://D:/joda-time-2.9.7" recursive="false" type="SOURCES" />
+      </library>
+    </orderEntry>
   </component>
 </module>

@@ -5,7 +5,6 @@ package GUI;/**
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-import static javafx.scene.paint.Color.*;
 
 
 public class guiMainPage {
@@ -16,23 +15,22 @@ public class guiMainPage {
     public JMenuBar menuBar;
     public JMenu mnMedical;
     public JMenuItem mntmAddNewEvent;
-    public JMenuItem mntmSeeNextWeeks;
     public JMenu mnPatient;
-    public JMenuItem mntmSeeCurrentEvents;
+    public JMenuItem mntmSeeEvents;
     public JMenu mnEvents;
     public JMenuItem mntmBasicInformation;
     public JMenuItem mntmRecord;
     public JMenuItem mntmAddPrescription; //the prescription frame will open
-    public JMenuItem mntmAddVisit;
-    public JMenuItem mntmAddDisease; //cannot be accessed by nurse
+    public JMenuItem mntmAddAppointmentForPatient;
     public JMenuItem mntmAddResult; //cannot be accessed by nurse
-    public JMenuItem mntmNewDisease;
+    public JMenuItem mntmNewDisease; //cannot be accessed by nurse
     public JMenuItem mntmAddDrug; //cannot be accessed by nurse
     public JTextField firstNameField;
     public JTextField lastNameField;
     public JTextField cnpField;
     public JButton btnLogout;
     public JButton btnRemovePatient;
+    public JButton btnUpdatePatient;
 
     //prescription
     public JPanel contentPanePrescription;
@@ -48,8 +46,7 @@ public class guiMainPage {
     public guiMainPage(){
 
         guiDoctor();
-        contentPane.setVisible(true);
-        mainPage.setVisible(true);
+
     }
 
     public void guiDoctor() {
@@ -77,11 +74,8 @@ public class guiMainPage {
         mntmAddPrescription = new JMenuItem("Add prescription");
         mnPatient.add(mntmAddPrescription);
 
-        mntmAddVisit = new JMenuItem("Add appointment");
-        mnPatient.add(mntmAddVisit);
-
-        mntmAddDisease = new JMenuItem("Add disease");
-        mnPatient.add(mntmAddDisease);
+        mntmAddAppointmentForPatient = new JMenuItem("Add appointment");
+        mnPatient.add(mntmAddAppointmentForPatient);
 
         mntmAddResult = new JMenuItem("Add result");
         mnPatient.add(mntmAddResult);
@@ -95,14 +89,11 @@ public class guiMainPage {
         mnEvents = new JMenu("Events");
         menuBar.add(mnEvents);
 
-        mntmSeeCurrentEvents = new JMenuItem("See current events");
-        mnEvents.add(mntmSeeCurrentEvents);
+        mntmSeeEvents = new JMenuItem("See events");
+        mnEvents.add(mntmSeeEvents);
 
         mntmAddNewEvent = new JMenuItem("Add new event");
         mnEvents.add(mntmAddNewEvent);
-
-        mntmSeeNextWeeks = new JMenuItem("See next week's events");
-        mnEvents.add(mntmSeeNextWeeks);
 
         contentPane = new JPanel();
         mainPage.setContentPane(contentPane);
@@ -147,6 +138,13 @@ public class guiMainPage {
         btnLogout.setBounds(370, 11, 89, 23);
         contentPane.add(btnLogout);
 
+        btnUpdatePatient = new JButton("Update patient's info");
+        btnUpdatePatient.setBounds(126, 262, 186, 38);
+        contentPane.add(btnUpdatePatient);
+
+        contentPane.setVisible(true);
+        mainPage.setVisible(true);
+
 
     }
 
@@ -164,56 +162,57 @@ public class guiMainPage {
 
         lblDate = new JLabel("Date");
         lblDate.setBounds(552, 11, 126, 28);
-        contentPane.add(lblDate);
+        contentPanePrescription.add(lblDate);
 
         lblPatientName = new JLabel("Patient name");
         lblPatientName.setBounds(10, 11, 137, 28);
-        contentPane.add(lblPatientName);
+        contentPanePrescription.add(lblPatientName);
 
         JLabel lblNewLabel_1 = new JLabel("Condition:");
         lblNewLabel_1.setBounds(10, 71, 87, 28);
-        contentPane.add(lblNewLabel_1);
+        contentPanePrescription.add(lblNewLabel_1);
 
         JLabel lblDrugs = new JLabel("Drug:");
         lblDrugs.setBounds(10, 110, 56, 28);
-        contentPane.add(lblDrugs);
+        contentPanePrescription.add(lblDrugs);
 
         JLabel lblQuantity = new JLabel("Quantity:");
         lblQuantity.setBounds(10, 149, 87, 21);
-        contentPane.add(lblQuantity);
+        contentPanePrescription.add(lblQuantity);
 
         JLabel lblDirections = new JLabel("Directions:");
         lblDirections.setBounds(10, 181, 87, 21);
-        contentPane.add(lblDirections);
+        contentPanePrescription.add(lblDirections);
 
         diseaseField = new JTextField();
         diseaseField.setBounds(85, 75, 196, 20);
-        contentPane.add(diseaseField);
+        contentPanePrescription.add(diseaseField);
         diseaseField.setColumns(10);
 
         drugField = new JTextField();
         drugField.setColumns(10);
         drugField.setBounds(85, 114, 196, 20);
-        contentPane.add(drugField);
+        contentPanePrescription.add(drugField);
 
         quantityField = new JTextField();
         quantityField.setColumns(10);
         quantityField.setBounds(85, 149, 196, 20);
-        contentPane.add(quantityField);
+        contentPanePrescription.add(quantityField);
 
         directionsField = new JTextField();
         directionsField.setColumns(10);
         directionsField.setBounds(85, 181, 196, 20);
-        contentPane.add(directionsField);
+        contentPanePrescription.add(directionsField);
 
         btnSeeDrugs = new JButton("See all drugs");
-        btnSeeDrugs.setBounds(524, 141, 104, 37);
-        contentPane.add(btnSeeDrugs);
+        btnSeeDrugs.setBounds(442, 141, 150, 37);
+        contentPanePrescription.add(btnSeeDrugs);
 
         btnAddPrescription = new JButton("Add prescription");
         btnAddPrescription.setBounds(442, 205, 186, 37);
-        contentPane.add(btnAddPrescription);
+        contentPanePrescription.add(btnAddPrescription);
 
+        contentPanePrescription.setVisible(true);
         prescriptionPage.setVisible(true);
     }
 
