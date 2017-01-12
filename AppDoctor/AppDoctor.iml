@@ -12,19 +12,31 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="GroupLayout" level="project" />
-    <orderEntry type="module-library" exported="">
+    <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file://D:/joda-time-2.9.7" />
+          <root url="jar://$USER_HOME$/Desktop/mysql-connector-java-5.1.40/mysql-connector-java-5.1.40-bin.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES>
-          <root url="file://D:/joda-time-2.9.7" />
-          <root url="file://D:/joda-time-2.9.7/src/main/java" />
-          <root url="file://D:/joda-time-2.9.7/src/test/java" />
-        </SOURCES>
-        <jarDirectory url="file://D:/joda-time-2.9.7" recursive="false" />
-        <jarDirectory url="file://D:/joda-time-2.9.7" recursive="false" type="SOURCES" />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/joda-time-1.6.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://E:/filme/jarForSe/joda-time-2.9.7.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
       </library>
     </orderEntry>
   </component>

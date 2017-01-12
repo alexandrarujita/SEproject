@@ -9,7 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 public class guiMainPage {
 
-    public JFrame mainPage, prescriptionPage;
+    public JFrame mainPage, prescriptionPage,drugsPage;
     private JPanel contentPane;
     public JButton btnAddNewPatient;
     public JMenuBar menuBar;

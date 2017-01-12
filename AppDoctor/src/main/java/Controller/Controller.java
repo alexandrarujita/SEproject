@@ -1,5 +1,6 @@
 package Controller;
 
+import Database.ConnectionToDatabase;
 import GUI.guiAdmin;
 import GUI.guiCalendar;
 import GUI.guiLog;
@@ -8,6 +9,7 @@ import Patient.Patient;
 import Person.Doctor;
 import Person.Nurse;
 import Person.*;
+import Patient.Drug;
 import org.joda.time.DateTime;
 import org.joda.time.chrono.StrictChronology;
 
@@ -32,14 +34,16 @@ public class Controller {
     private guiCalendar calendarPage;
     private dateService dateAccess;
     private int day;
+    private ConnectionToDatabase conn;
 
 
-    public Controller() {
+    public Controller(ConnectionToDatabase conn) {
+        this.conn=conn;
         loginPage = new guiLog();
         loginPage.cnpField.setVisible(false);
         loginPage.lblCnp.setVisible(false);
 
-        employeeAccess = new employeeService();
+        employeeAccess = new employeeService(conn.getConn());
         loginActions();
 
     }
@@ -66,7 +70,7 @@ public class Controller {
                             loginPage.cnpField.setVisible(true);
                             loginPage.lblCnp.setVisible(true);
                         } else {
-                            if (!loginEmployee.getPassword().equals(passw)) {
+                            if (loginEmployee.getPassword()==null) {
                                 JOptionPane.showMessageDialog(null, "Incorrect password! ", "OK", JOptionPane.OK_OPTION);
                             } else {
                                 mainPage = new guiMainPage();
@@ -205,6 +209,23 @@ public class Controller {
 
             }
         });
+//        mainPage.btnSeeDrugs.addActionListener(new ActionListener() {
+//            public void actionPerformed(ActionEvent e) {
+//                String[] columnNames = {"name",
+//                        "price"};
+//                ArrayList<Drug> drugs =employeeAccess.seeAllDrugs();
+//                Object[][] data=new Object[drugs.size()][2];
+//                int i=0;
+//                for(Drug d: drugs){
+//                    data[i][0]=d.getName();
+//                    data[i][1]=d.getPrice();
+//                    System.out.println(data[i][0]);
+//                    System.out.println(data[i][1]);
+//                    i++;
+//                }
+//                JTable table = new JTable(data, columnNames);
+ //           }
+//        });
 
 
         mainPage.mntmAddResult.addActionListener(new ActionListener() {
@@ -227,7 +248,7 @@ public class Controller {
 
     }
 
-    private void prescriptionActions(final Person patientsPrescr) {
+    private void prescriptionActions(final Patient patientsPrescr) {
 
         mainPage.lblPatientName.setText(patientsPrescr.getFirstName() + " " + patientsPrescr.getLastName());
         mainPage.lblDate.setText(new Date().toString());
@@ -246,7 +267,7 @@ public class Controller {
                 int quantity = Integer.parseInt(mainPage.quantityField.getText());
                 String directions = mainPage.directionsField.getText();
                 
-                patientAccess.addDisease(disease);
+                patientAccess.addDisease(disease,patientsPrescr);
                 patientAccess.addPrescriptionFor(patientsPrescr);
             }
         });

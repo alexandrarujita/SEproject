@@ -1,6 +1,7 @@
 package main;
 
 import Controller.*;
+import Database.ConnectionToDatabase;
 
 
 /**
@@ -10,8 +11,9 @@ public class toRun {
 
     public static void main(String[] args) {
 
-       // launch(args);
-         new Controller();
+        ConnectionToDatabase connectionToDatabase = new ConnectionToDatabase();
+        connectionToDatabase.startConnection();
+        new Controller(connectionToDatabase);
         //  new guiAdmin();
     //new guiMainPage();
 //        new guiCalendar();
